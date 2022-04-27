@@ -1,6 +1,6 @@
-import type { NextPage } from 'next'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faUserGroup, faBuilding, faLocationDot, faLink, faHashtag, faBookBookmark} from "@fortawesome/free-solid-svg-icons";
 import Head from 'next/head'
-import React, { useState } from "react";
 
 export default function User(props: { user: any; }) {
 
@@ -32,10 +32,27 @@ export default function User(props: { user: any; }) {
           <div className="img">
             <img src={user.avatar_url} alt={user.name} />
           </div>
-          <div className="info">
+          <div className="bio">
             <h1>{user.name !== "Not Found" ? user.name : "Not Found"}</h1>
             <h2>( {user.login} )</h2>
-            <h4>{user.bio}</h4>
+
+            <div className="follow">
+              <FontAwesomeIcon id="icon" icon={faUserGroup} />
+              <h4><span>{user.message !== 'Not Found' ? user.followers : "NaN"}</span> followers</h4>
+              <h4><span>{user.message !== 'Not Found' ? user.following : "NaN"}</span> following</h4>
+            </div>
+          </div>
+        </div>
+        
+        <div className="body">
+          <div className="bio">
+            {user.company !== null ? user.company.substr(0,1).includes("@") ? <h2><a href={`https://github.com/${user.company.substr(1)}`} target="_blank"><FontAwesomeIcon id="icon" icon={faBuilding} /> {user.company}</a></h2> : <h2><FontAwesomeIcon id="icon" icon={faBuilding} /> {user.company} </h2> : null}
+            {user.location !== null ? <h2><FontAwesomeIcon id="icon" icon={faLocationDot} /> {user.location}</h2> : null}
+            {user.blog !== "" ? <h2><a href={user.blog} target="_blank"><FontAwesomeIcon id="icon" icon={faLink} /> {user.blog}</a></h2> : null}
+            {user.twitter_username !== null ? <h2><a href={`https://twitter.com/${user.twitter_username}`} target="_blank"><FontAwesomeIcon id="icon" icon={faHashtag} /> {user.twitter_username}</a></h2> : null}
+          </div>
+          <div className="repos">
+            
           </div>
         </div>
       </div>
@@ -49,11 +66,20 @@ export async function getServerSideProps (ctx: any) {
     const fetchuser = await fetch(`https://api.github.com/users/${ctx.params.id}`, {
         method: 'GET',
         headers: {
-            'Authorization': 'token ...',
-            
+            'Authorization': 'token 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',
+            'Content-Type': 'application/json'            
             }
     })
     const user = await fetchuser.json()
+
+    if (user.message === 'Not Found') {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      }
+    }
 
     return {
         props: { user},
