@@ -66,7 +66,7 @@ export async function getServerSideProps (ctx: any) {
     const fetchuser = await fetch(`https://api.github.com/users/${ctx.params.id}`, {
         method: 'GET',
         headers: {
-            'Authorization': 'token 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',
+            'Authorization': 'token YOUR_OAUTH_TOKEN',
             'Content-Type': 'application/json'            
             }
     })
