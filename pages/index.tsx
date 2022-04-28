@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
 
@@ -32,6 +34,7 @@ export default function Home() {
       <button className="search-button" onClick={() => {
           window.location.href = `/user/${usersvalue}`
         }}>
+        <FontAwesomeIcon id="icon" icon={faMagnifyingGlass} />
       </button>
       </div>
     </main>
