@@ -5,7 +5,6 @@ import Head from 'next/head'
 export default function User(props: { user: any; }) {
 
     const { user } = props;
-    console.log(user);
 
   return (
     <main className="container">
@@ -52,7 +51,16 @@ export default function User(props: { user: any; }) {
             {user.twitter_username !== null ? <h2><a href={`https://twitter.com/${user.twitter_username}`} target="_blank"><FontAwesomeIcon id="icon" icon={faHashtag} /> {user.twitter_username}</a></h2> : null}
           </div>
           <div className="repos">
-            
+            <h2>Public repo : <span>{user.public_repos}</span></h2>
+          </div>
+          <div className="repos">
+            <h2>Public gists : <span>{user.public_gists}</span></h2>
+          </div>
+          <div className="repos">
+            <h2>Created at : <span>{user.created_at.substr(0, 10)}</span></h2>
+          </div>
+          <div className="repos">
+            <h2>Updated at : <span>{user.updated_at.substr(0, 10)}</span></h2>
           </div>
         </div>
       </div>
@@ -66,7 +74,7 @@ export async function getServerSideProps (ctx: any) {
     const fetchuser = await fetch(`https://api.github.com/users/${ctx.params.id}`, {
         method: 'GET',
         headers: {
-            'Authorization': 'token YOUR_OAUTH_TOKEN',
+            'Authorization': 'token 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',
             'Content-Type': 'application/json'            
             }
     })
