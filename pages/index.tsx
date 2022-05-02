@@ -5,7 +5,7 @@ import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
 
-  const [usersvalue, userssetValue] = useState(null);
+  const [usersvalue, userssetValue] = useState("");
 
   return (
     <main className="container">
