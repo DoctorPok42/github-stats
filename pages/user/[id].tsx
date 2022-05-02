@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faUserGroup, faBuilding, faLocationDot, faLink, faHashtag, faBookBookmark} from "@fortawesome/free-solid-svg-icons";
 import Head from 'next/head'
 
-export default function User(props: { user: any; }) {
+export default function User(props) {
 
     const { user } = props;
 
@@ -90,6 +90,6 @@ export async function getServerSideProps (ctx: any) {
     }
 
     return {
-        props: { user},
+        props: { user },
     }
 }
